@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "./dist/client";
 
-export * from "@prisma/client";
+export * from "./dist/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
