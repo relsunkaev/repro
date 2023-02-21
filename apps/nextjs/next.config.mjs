@@ -4,6 +4,9 @@
  * This is especially useful for Docker builds and Linting.
  */
 
+// @ts-ignore
+import { PrismaPlugin } from "experimental-prisma-webpack-plugin";
+
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -12,11 +15,13 @@ const config = {
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
-  webpack(config) {
-    return {
-      ...config,
-      externals: [...config.externals, "@acme/db"],
-    };
+  output: "standalone",
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()];
+    }
+
+    return config;
   },
 };
 

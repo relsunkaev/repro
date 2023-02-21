@@ -8,10 +8,10 @@ generator client {
 
 datasource db {
     provider = "mysql"
-    url      = "mysql://root@localhost:3306/test"
+    url      = "mysql://root@localhost:3306/tes2"
 }
 
-model Post {
+model Post2 {
     id      String @id @default(cuid())
     title   String
     content String
@@ -21,7 +21,7 @@ model Post {
 // NOTE: When using postgresql, mysql or sqlserver, 
 // uncomment the @db.Text annotations below
 // @see https://next-auth.js.org/schemas/models
-model Account {
+model Account2 {
     id                String  @id @default(cuid())
     userId            String
     type              String
@@ -34,30 +34,30 @@ model Account {
     scope             String?
     id_token          String? // @db.Text
     session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user              User2    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
 }
 
-model Session {
+model Session2 {
     id           String   @id @default(cuid())
     sessionToken String   @unique
     userId       String
     expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user         User2     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
+model User2 {
     id            String    @id @default(cuid())
     name          String?
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    accounts      Account[]
-    sessions      Session[]
+    accounts      Account2[]
+    sessions      Session2[]
 }
 
-model VerificationToken {
+model VerificationToken2 {
     identifier String
     token      String   @unique
     expires    DateTime

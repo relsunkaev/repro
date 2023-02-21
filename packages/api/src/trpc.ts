@@ -11,6 +11,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { getServerSession, type Session } from "@acme/auth";
 import { prisma } from "@acme/db";
+import { prisma as prisma2 } from "@acme/db2";
 
 /**
  * 1. CONTEXT
@@ -38,6 +39,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
     prisma,
+    prisma2,
   };
 };
 
